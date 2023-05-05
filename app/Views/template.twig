@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}{% endblock %}Rick and Morty Characters</title>
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.7/dist/tailwind.min.css" />
+    {% endblock %}
+</head>
+
+<body class="bg-gray-500">
+
+<nav class="bg-gray-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <a class="flex-shrink-0 text-white font-bold text-xl" href="/">
+                    Rick and Morty
+                </a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline">
+                        <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700 hover:text-white">Home</a>
+
+                        <a href="/episodes" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700 hover:text-white">Episodes</a>
+
+                        <a href="/locations" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700 hover:text-white">Locations</a>
+                    </div>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
+                    <svg class="h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Mobile menu</title><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M4 8h12M4 14h12"></path></g></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 hover:text-white">Home</a>
+
+            <a href="/episodes" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 hover:text-white">Episodes</a>
+
+            <a href="/locations" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 hover:text-white">Locations</a>
+        </div>
+    </div>
+</nav>
+
+
+<main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</main>
+
+<footer class="bg-neutral-900 text-center text-white py-4">
+    {% block footer %}
+
+    {% endblock %}
+</footer>
+
+<script>
+    const menuBtn = document.getElementById('mobile-menu');
+    const navbar = document.querySelector('nav');
+
+    menuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('bg-gray-900')
+    });
+</script>
