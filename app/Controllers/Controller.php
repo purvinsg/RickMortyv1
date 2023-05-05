@@ -18,19 +18,19 @@ class Controller
 
     public function characters($page = 1): View
     {
-        $response = $this->client->getCharacters($page);
+        $response = $this->client->fetchCharacters($page);
         return new View('characters', $response);
     }
 
     public function episodes($page = 1): View
     {
-        $response = $this->client->getEpisodes($page);
+        $response = $this->client->fetchEpisodes($page);
         return new View('episodes', $response);
     }
 
     public function locations($page = 1): View
     {
-        $response = $this->client->getLocations($page);
+        $response = $this->client->fetchLocations($page);
         return new View('locations', $response);
     }
 
