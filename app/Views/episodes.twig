@@ -1,60 +1,32 @@
 {% extends "template.twig" %}
 
 {% block content %}
-    <div class="grid h-screen place-items-center">
-        <h2 class="text-4xl font-extrabold dark:text-white">List of Rick and Morty episodes</h2>
-        <div class="flex flex-col content-center">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-flex py-2 sm:px-6 lg:px-8">
-                    <div class="overflow-hidden">
-                        <table class=" flex-col xl:flex-row shadow hover:shadow-md w-full bg-gray-300 rounded-lg overflow-hidden ">
-                            <thead
-                                    class="border-b bg-neutral-500 font-medium text-black dark:border-neutral-500 dark:bg-neutral-500">
-                            <tr>
-                                <th scope="col" class=" px-6 py-4">#</th>
-                                <th scope="col" class=" px-6 py-4">Name</th>
-                                <th scope="col" class=" px-6 py-4">Air date</th>
-                                <th scope="col" class=" px-6 py-4">Episode</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for episode in episodes %}
-                                <tr class="border-b dark:border-neutral-300">
-                                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ episode.id }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ episode.name }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ episode.airdate }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ episode.episode }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {% if episodes is empty %}
+    {% endif %}
 
-        <div class="max-w-auto mx-auto">
-            <ul class="inline-flex flex-wrap justify-center">
-                <a
-                        class="border border-gray-300 relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-100 hover:bg-neutral-100"
-                        href="/episodes/{{ page.prev }}"
-                >Previous</a
-                >
-                {% for i in 1..page.pages %}
-                    <li>
-                        <a
-                                class="border border-gray-300 relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-100 hover:bg-neutral-100"
-                                href="/episodes/{{ i }}"
-                        >{{ i }}</a
-                        >
-                    </li>
+    <div class=" grid grid-cols-1 gap-4 items-center w-full py-6 px-10">
+        {% for i in 1..5 %}
+            <div class="flex justify-evenly grid grid-cols-4  items-center xl:flex-row shadow hover:shadow-md w-full bg-white rounded-lg p-5">
+                <h1 class="col-span-2 font-semibold text-xl tracking-tight pb-5">Season {{ i }}</h1>
+                <h1 class="font-semibold text-l tracking-tight ">Air-date</h1>
+                <h1 class="font-semibold text-l tracking-tight">Characters in episode</h1>
+                {% for episode in episodes %}
+                    {% if episode.season == i %}
+                        <div class="grid col-span-2 hover:bg-gray-200 hover:rounded">
+                            <a href="/episode/{{ episode.id }}" class="">
+                                <span class="px-5">{{ episode.episode }}.</span>
+                                {{ episode.name }}
+                            </a>
+                        </div>
+                        <div>
+                            {{ episode.airdate }}
+                        </div>
+                        <div class="pl-10">
+                            {{ episode.characterIds|length }}
+                        </div>
+                    {% endif %}
                 {% endfor %}
-                <a
-                        class="border border-gray-300 relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-100 hover:bg-neutral-100"
-                        href="/episodes/{{ page.next }}"
-                >Next</a
-                >
-            </ul>
-        </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

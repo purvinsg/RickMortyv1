@@ -1,0 +1,106 @@
+{% extends "template.twig" %}
+
+{% block content %}
+    <div class="bg-gray-400">
+    <div class="container mx-auto my-5 p-5">
+        <div class="md:flex no-wrap md:-mx-2 ">
+            <!-- Left Side -->
+            <div class="w-full md:w-3/12 md:mx-2">
+                <!-- Profile Card -->
+                <div class="bg-white p-3 border-t-4 border-black">
+                    <div class="image overflow-hidden">
+                        <img class="h-auto w-full mx-auto"
+                             src="{{ character.image }}"
+                             alt="{{ character.name }}">
+                    </div>
+                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ character.name }}</h1>
+                    <h3 class="text-gray-600 font-lg text-semibold leading-6"></h3>
+
+                    <ul
+                            class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                        <li class="flex items-center py-3">
+                            <span>Status: </span>
+                            {% if character.status == 'Alive' %}
+                                <span class="ml-auto">
+                                    <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Alive</span>
+                                </span>
+                            {% elseif character.status == 'Dead' %}
+                                <span class="ml-auto">
+                                    <span class="bg-red-500 py-1 px-2 rounded text-white text-sm">Dead</span>
+                                </span>
+                            {% else %}
+                                <span class="ml-auto">
+                                    <span class="bg-gray-500 py-1 px-2 rounded text-white text-sm">Unknown</span>
+                                </span>
+                            {% endif %}
+                        </li>
+                        <li class="flex items-center py-3">
+                            <span class="mr-12">Species:</span>
+                            <span class="ml-auto">{{ character.species }}</span>
+                        </li>
+                        <li class="flex items-center py-3">
+                            <span class="mr-12">Origin:</span>
+                            <span class="ml-auto">
+                                {% if character.origin is empty %}
+                                    Unknown
+                                {% else %}
+                                    {{ character.origin.name }}
+                                {% endif %}
+                            </span>
+                        </li>
+                        <li class="flex items-center py-3">
+                            <span class="mr-12">Last location:</span>
+                            <span class="ml-auto">{{ character.location.name }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End of profile card -->
+                <div class="my-4"></div>
+
+            </div>
+            <!-- Right Side -->
+            <div class="w-full md:w-9/12 mx-2">
+                <!-- Profile tab -->
+                <!-- About Section -->
+
+                <div class="bg-white p-4 shadow-lg rounded-lg">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-gray-900 font-semibold text-lg tracking-wide">Episodes starring {{ character.name }} ({{ episodes|length }})</span>
+                    </div>
+                    <div class="text-gray-700">
+                        <div class="grid grid-cols-1 gap-4">
+                            <table class="table-auto">
+                                <thead>
+                                <tr class="border-b border-black">
+                                    <th class="py-2 px-4 text-center">Episode Name</th>
+                                    <th class="py-2 px-4 text-center">Season</th>
+                                    <th class="py-2 px-4 text-center">Air date</th>
+                                    <th class="py-2 px-4"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for episode in episodes %}
+                                    <tr class="border-b border-gray-300 text-center">
+                                        <td class="pl-5 py-2">{{ episode.name }}</td>
+                                        <td class="py-2">{{ episode.season }}</td>
+                                        <td class="py-2">{{ episode.airdate }}</td>
+                                        <td class="py-2">
+                                            <a href="/episode/{{ episode.id }}" class="bg-gray-700 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
+                                                See More
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End of profile tab -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

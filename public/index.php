@@ -16,5 +16,5 @@ echo $renderer->render($response);
 ///
 ///
 ///
-/// uztaisit single character vieW!!!
-/// UN MEKLETĀJU!
+/// TODO: uztaisit single character vieW!!!
+/// TODO: UN MEKLETĀJU!

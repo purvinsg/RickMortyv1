@@ -6,15 +6,15 @@ class Page
 {
     private int $count;
     private int $pages;
-    private ?int $next;
-    private ?int $prev;
+    private ?string $next;
+    private ?string $prev;
 
     public function __construct(\stdClass $pageInfo)
     {
         $this->count = $pageInfo->count;
         $this->pages = $pageInfo->pages;
-        $this->next = (int)substr($pageInfo->next, strrpos($pageInfo->next, '=') + 1);
-        $this->prev = (int)substr($pageInfo->prev, strrpos($pageInfo->prev, '=') + 1);
+        $this->next = $pageInfo->next;
+        $this->prev = $pageInfo->prev;
     }
 
     public function getCount(): int
@@ -27,13 +27,26 @@ class Page
         return $this->pages;
     }
 
-    public function getNext(): ?int
+    public function getNext(): int
     {
-        return $this->next ?? $this->pages;
+        if(!$this->next){
+            return $this->pages;
+        }
+        $query = parse_url($this->next, PHP_URL_QUERY); // Get the query string
+        parse_str($query, $params); // Parse the query string into an array
+
+        return (int )$params['page'];
+
     }
 
-    public function getPrev(): ?int
+    public function getPrev(): int
     {
-        return $this->prev ?? 1;
+        if(!$this->prev){
+            return 1;
+        }
+        $query = parse_url($this->prev, PHP_URL_QUERY);
+        parse_str($query, $params);
+
+        return (int )$params['page'];
     }
 }
